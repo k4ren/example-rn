@@ -1,12 +1,25 @@
 import React, { Component } from 'react';
 import { AppRegistry, Text, View } from 'react-native';
 
-class Greeting extends Component{
-  render (){
+class Blink extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { isShowingText: true };
+
+    setInterval(() => (
+      this.setState(previousState => (
+        { isShowingText: !previousState.isShowingText }
+      ))
+    ), 1000);
+  }
+
+  render() {
+    if (!this.state.isShowingText) {
+      return null;
+    }
+
     return (
-      <View style={{alignItems: 'center'}}>
-        <Text>Hello {this.props.name}!</Text>
-      </View>
+      <Text>{this.props.text}</Text>
     );
   }
 }
@@ -15,9 +28,10 @@ export default class App extends Component {
   render() {
     return (
       <View>
-        <Greeting name='Name 1'/>
-        <Greeting name='Name 2'/>
-        <Greeting name='Name 3'/>
+        <Blink text='I love to blink' />
+        <Blink text='Yes blinking is so great' />
+        <Blink text='Why did they ever take this out of HTML' />
+        <Blink text='Look at me look at me look at me' />
       </View>
     );
   }
